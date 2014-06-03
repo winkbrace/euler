@@ -59,4 +59,9 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
         $expected = array(5, 7, 13, 29);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testGetNthPrime()
+    {
+        $this->assertEquals(13, $this->prime->getNthPrime(6));
+    }
 }

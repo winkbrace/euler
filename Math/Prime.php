@@ -27,6 +27,16 @@ class Prime
 
     /**
      * @param int $n
+     * @return int
+     */
+    public function getNthPrime($n)
+    {
+        $primes = $this->getPrimes();
+        return $primes[$n - 1];
+    }
+
+    /**
+     * @param int $n
      * @return int[]
      */
     public function getPrimesTo($n)
