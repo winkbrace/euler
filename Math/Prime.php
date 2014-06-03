@@ -2,6 +2,8 @@
 
 class Prime
 {
+    const MAX_IN_FILE = 611953;
+
     /** @var int[] */
     protected $primes = array();
 
@@ -14,7 +16,32 @@ class Prime
         if ($n < 2)
             return false;
 
+        if ($n > self::MAX_IN_FILE)
+            return $this->calculateIsPrime($n);
+
         return in_array($n, $this->getPrimes());
+    }
+
+    /**
+     * we only have to check all prime numbers to see if a number is a prime number
+     * when we find one, we add it to the array
+     * @param int $n
+     * @return bool
+     */
+    protected function calculateIsPrime($n)
+    {
+        $root = ceil(sqrt($n));
+        foreach ($this->getPrimes() as $p)
+        {
+            if ($p > $root)
+            {
+                $this->primes[] = $n;
+                return true;
+            }
+
+            if ($n % $p == 0)
+                return false;
+        }
     }
 
     /**
@@ -41,7 +68,7 @@ class Prime
      */
     public function getPrimesTo($n)
     {
-        if ($n > 611953)
+        if ($n > self::MAX_IN_FILE)
             return $this->getPrimes();
 
         $primes = array();

@@ -1,4 +1,4 @@
-<?php require_once 'bootstrap.php';
+<?php
 
 /**
  * Largest product in a series

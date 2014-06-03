@@ -1,4 +1,4 @@
-<?php require_once 'bootstrap.php';
+<?php
 
 /**
  * Multiples of 3 and 5
