@@ -7,7 +7,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Math\\": "Math"
+            "Math\\": "Math",
+            "String\\": "String"
         }
     }
 }
