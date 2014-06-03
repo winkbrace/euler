@@ -54,26 +54,17 @@ class Prime
      */
     public function getPrimeFactorsOf($n)
     {
+        $f = new Factor();
         $factors = array();
 
         $primes = $this->getPrimesTo(ceil(sqrt($n)));
         foreach ($primes as $prime)
         {
-            if ($this->isFactor($prime, $n))
+            if ($f->isFactor($prime, $n))
                 $factors[] = $prime;
         }
 
         return $factors;
-    }
-
-    /**
-     * @param int $x
-     * @param int $n
-     * @return bool
-     */
-    public function isFactor($x, $n)
-    {
-        return gmp_strval(gmp_div_r("$n", "$x")) == '0';
     }
 
     /**
