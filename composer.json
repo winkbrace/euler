@@ -1,0 +1,10 @@
+{
+    "name": "winkbrace/euler",
+    "type": "puzzles",
+    "description": "projecteuler.net puzzles",
+    "autoload": {
+        "psr-4": {
+            "Math\\": "Math"
+        }
+    }
+}
