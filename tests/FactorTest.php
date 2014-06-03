@@ -34,4 +34,16 @@ class FactorTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(array(2, 3), $this->factor->getPrimeFactors(24));
     }
+
+    public function testGetSmallestFactorStepOfRange()
+    {
+        // range 10 .. 20 -> primes are 11, 13, 17, 19 -> product = 46189
+        $this->assertEquals(46189, $this->factor->getSmallestFactorStepOfRange(10, 20));
+    }
+
+    public function testGetSmallestMultipleOfRange()
+    {
+        $this->assertEquals(12, $this->factor->getSmallestMultipleOfRange(1, 4));
+        $this->assertEquals(232792560, $this->factor->getSmallestMultipleOfRange(10, 20));
+    }
 }

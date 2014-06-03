@@ -40,4 +40,44 @@ class Factor
         $p = new Prime();
         return $p->getPrimeFactorsOf($n);
     }
+
+    /**
+     * Get the smallest number that can be divided by all numbers in given range
+     * @param int $from
+     * @param int $to
+     * @return int[]
+     */
+    public function getSmallestMultipleOfRange($from, $to)
+    {
+        $step = $this->getSmallestFactorStepOfRange($from, $to);
+        $max = array_product(range($from, $to));
+        $n = 0;
+        while ($n <= $max)
+        {
+            $n += $step;
+            for ($j=$from; $j<=$to; $j++)
+            {
+                if (! $this->isFactor($j, $n))
+                    continue(2);
+            }
+
+            return $n;
+        }
+
+        return 0; // not found
+    }
+
+    /**
+     * The product of the primary keys in a range is the smallest possible divisor for all numbers in that range.
+     * @param int $from
+     * @param int $to
+     * @return int[]
+     */
+    public function getSmallestFactorStepOfRange($from, $to)
+    {
+        $p = new Prime();
+        $primes = $p->getPrimesTo($to);
+        $primes = array_filter($primes, function($x) use ($from) { return $x > $from; });
+        return array_product($primes);
+    }
 } 
