@@ -14,6 +14,6 @@
 $m = new \Math\Multiples();
 
 // flip values to keys, so we can add and as a side effect the values become unique
-$multiples = array_flip($m->getMultiplesBelow(3, 1000)) + array_flip($m->getMultiplesBelow(5, 1000));
+$multiples = array_flip($m->getMultiplesTo(3, 999)) + array_flip($m->getMultiplesTo(5, 999));
 
 echo array_sum(array_keys($multiples));

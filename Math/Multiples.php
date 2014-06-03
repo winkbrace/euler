@@ -9,10 +9,10 @@ class Multiples
      * @param int $max
      * @return array
      */
-    public function getMultiplesBelow($n, $max)
+    public function getMultiplesTo($n, $max)
     {
         $multiples = array();
-        for ($i = $n; $i < $max; $i += $n)
+        for ($i = $n; $i <= $max; $i += $n)
             $multiples[] = $i;
 
         return $multiples;
