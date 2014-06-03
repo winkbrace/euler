@@ -57,7 +57,6 @@ class Prime
         $factors = array();
 
         $primes = $this->getPrimesTo(ceil(sqrt($n)));
-        var_dump(count($primes), max($primes));
         foreach ($primes as $prime)
         {
             if ($this->isFactor($prime, $n))
