@@ -14,7 +14,7 @@
  */
 
 $f = new \Math\Fibonacci();
-$f->createSequenceBelow(4000000);
+$f->createSequenceTo(4000000);
 
 $result = array_filter($f->getSequence(), function($n) {
     return $n % 2 == 0;

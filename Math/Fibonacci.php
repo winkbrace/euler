@@ -2,25 +2,32 @@
 
 class Fibonacci
 {
-    protected $sequence = array(1, 2);
-    protected $index = 1;
+    /** @var int[] */
+    protected $sequence;
+    /** @var int */
+    protected $index;
 
-    public function createSequenceBelow($max)
+    public function __construct()
     {
-        $sum = 0;
+        $this->sequence = array(1, 2);
+        $this->index = 1;
+    }
+
+    public function createSequenceTo($max)
+    {
+        $sum = 3;
         while ($sum < $max)
-            $sum = $this->setNextValue();
+        {
+            $this->setNextValue($sum);
+            $sum = $this->getSumOfLastTwoDigits();
+        }
 
         return $this->sequence;
     }
 
-    protected function setNextValue()
+    protected function setNextValue($sum)
     {
-        $sum = $this->getSumOfLastTwoDigits();
-        $this->sequence[] = $sum;
-        $this->index++;
-
-        return $sum;
+        $this->sequence[++$this->index] = $sum;
     }
 
     protected function getSumOfLastTwoDigits()
