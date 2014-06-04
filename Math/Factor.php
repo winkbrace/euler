@@ -10,10 +10,7 @@ class Factor
      */
     public function isFactor($needle, $haystack)
     {
-        if ($needle <= 0)
-            throw new \InvalidArgumentException("$needle must be at least 1");
-
-        return gmp_strval(gmp_div_r("$haystack", "$needle")) == '0';
+        return $haystack % $needle == 0;
     }
 
     /**
@@ -22,12 +19,31 @@ class Factor
      */
     public function getFactors($n)
     {
-        $factors = array(1);
-        for ($i = 2; $i <= ceil($n / 2); $i++)
+        if ($n == 1)
+            return array(1);
+
+        $factors = array(1 => 1, $n => 1);
+
+        // all factors are a multiple of a prime factor. This greatly reduces the amount
+        // of numbers to check
+        $root = floor(sqrt($n));
+        foreach ($this->getPrimeFactors($n) as $p)
         {
-            if ($this->isFactor($i, $n))
-                $factors[] = $i;
+            $i = 1;
+            $product = $p * $i;
+            while ($product <= $root)
+            {
+                if ($n % $product == 0)
+                {
+                    $factors[$product] = 1;
+                    $factors[$n / $product] = 1;
+                }
+                $product = $p * ++$i;
+            }
         }
+
+        $factors = array_keys($factors);
+        sort($factors);
         return $factors;
     }
 

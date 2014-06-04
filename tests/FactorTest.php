@@ -16,18 +16,14 @@ class FactorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->factor->isFactor(3, 8));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIsFactorWithZero()
-    {
-        $this->assertTrue($this->factor->isFactor(0, 8));
-    }
-
     public function testGetFactors()
     {
-        $this->assertEquals(array(1, 2, 5), $this->factor->getFactors(10));
-        $this->assertEquals(array(1, 2, 3, 4, 6, 8, 12), $this->factor->getFactors(24));
+        $this->assertEquals(array(1), $this->factor->getFactors(1));
+        $this->assertEquals(array(1, 2), $this->factor->getFactors(2));
+        $this->assertEquals(array(1, 3, 9), $this->factor->getFactors(9));
+        $this->assertEquals(array(1, 2, 5, 10), $this->factor->getFactors(10));
+        $this->assertEquals(array(1, 2, 3, 4, 6, 8, 12, 24), $this->factor->getFactors(24));
+        $this->assertEquals(array(1, 7, 49), $this->factor->getFactors(49));
     }
 
     public function testGetPrimeFactors()
