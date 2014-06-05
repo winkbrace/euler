@@ -41,7 +41,7 @@ $grid = explode(PHP_EOL, $string);
 foreach ($grid as $i => $line)
     $grid[$i] = explode(' ', $line);
 
-// get the 8 best routes for 8 rows, then use those as starting point for the rest ?
+// get the 8 best routes for 8 rows, then use those as starting point for the rest.
 // that reduces options from 128 to 8
 
 $t = new \Paths\Triangle($grid);
