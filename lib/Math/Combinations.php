@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Math;
 
 class Combinations
 {
@@ -27,4 +27,4 @@ class Combinations
     {
         return $this->factorial($n);
     }
-} 
+}

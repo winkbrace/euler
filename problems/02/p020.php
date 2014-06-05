@@ -12,3 +12,8 @@
  * Find the sum of the digits in the number 100!
  */
 
+$fac = gmp_strval(gmp_fact(100));
+echo $fac.PHP_EOL;
+
+$s = new \Math\Sum();
+echo $s->getSumOfDigits($fac);

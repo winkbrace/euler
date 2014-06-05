@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Math;
 
 class Factor
 {
@@ -44,6 +44,18 @@ class Factor
 
         $factors = array_keys($factors);
         sort($factors);
+        return $factors;
+    }
+
+    /**
+     * divisors are all factors smaller than $n
+     * @param int $n
+     * @return int[]
+     */
+    public function getDivisors($n)
+    {
+        $factors = $this->getFactors($n);
+        array_pop($factors);
         return $factors;
     }
 
@@ -96,4 +108,4 @@ class Factor
         $primes = array_filter($primes, function($x) use ($from) { return $x > $from; });
         return array_product($primes);
     }
-} 
+}
