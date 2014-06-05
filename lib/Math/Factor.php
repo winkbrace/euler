@@ -2,6 +2,14 @@
 
 class Factor
 {
+    /** @var \Math\Prime */
+    protected $prime;
+
+    public function __construct()
+    {
+        $this->prime = Prime::getInstance();
+    }
+
     /**
      * @param int $needle
      * @param int $haystack
@@ -17,7 +25,7 @@ class Factor
      * @param int $n
      * @return int[]
      */
-    public function getFactors($n)
+    public function findFactors($n)
     {
         if ($n == 1)
             return array(1);
@@ -36,6 +44,7 @@ class Factor
                 if ($n % $product == 0)
                 {
                     $factors[$product] = 1;
+                    /** @noinspection PhpIllegalArrayKeyTypeInspection */
                     $factors[$n / $product] = 1;
                 }
                 $product = $p * ++$i;
@@ -52,9 +61,9 @@ class Factor
      * @param int $n
      * @return int[]
      */
-    public function getDivisors($n)
+    public function findDivisors($n)
     {
-        $factors = $this->getFactors($n);
+        $factors = $this->findFactors($n);
         array_pop($factors);
         return $factors;
     }
@@ -65,8 +74,7 @@ class Factor
      */
     public function getPrimeFactors($n)
     {
-        $p = new Prime();
-        return $p->getPrimeFactorsOf($n);
+        return $this->prime->getPrimeFactorsOf($n);
     }
 
     /**

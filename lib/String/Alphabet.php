@@ -1,6 +1,6 @@
 <?php namespace String;
 
-use Util\Arrays;
+use Util\ArrayHelper;
 
 class Alphabet
 {
@@ -34,6 +34,6 @@ class Alphabet
         $this->alphabet = range('a', 'z');
 
         // move all keys 1 up so 1 = a and 26 = z
-        Arrays::incrementKeys($this->alphabet);
+        ArrayHelper::incrementKeys($this->alphabet);
     }
 }

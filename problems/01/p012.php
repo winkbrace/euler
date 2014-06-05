@@ -29,7 +29,7 @@ $f = new \Math\Factor();
 for ($i=12300; $i<100000; $i++)
 {
     $n = $t->getNumberAt($i);
-    $count = count($f->getFactors($n));
+    $count = count($f->findFactors($n));
     if ($count > 100 || $i % 100 == 0)
     {
         echo PHP_EOL."TriangleNumber($i) = $n and has $count factors";

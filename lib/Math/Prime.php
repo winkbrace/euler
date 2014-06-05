@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Math;
 
 class Prime
 {
@@ -6,6 +6,21 @@ class Prime
 
     /** @var int[] */
     protected $primes = array();
+
+    /** @var \Math\Prime */
+    protected static $instance;
+
+    /**
+     * It is handy to have only 1 Prime instance, so the file with first 50k primes will only be read once.
+     * @return Prime
+     */
+    public static function getInstance()
+    {
+        if (empty(self::$instance))
+            self::$instance = new self();
+
+        return self::$instance;
+    }
 
     /**
      * @param int $n

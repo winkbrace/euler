@@ -19,7 +19,7 @@ $fh = fopen($file, 'r');
 $names = fgetcsv($fh);
 fclose($fh);
 sort($names);
-\Util\Arrays::incrementKeys($names);
+\Util\ArrayHelper::incrementKeys($names);
 
 $alphabet = new \String\Alphabet();
 

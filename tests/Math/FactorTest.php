@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Math;
 
 class FactorTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,12 +18,12 @@ class FactorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFactors()
     {
-        $this->assertEquals(array(1), $this->factor->getFactors(1));
-        $this->assertEquals(array(1, 2), $this->factor->getFactors(2));
-        $this->assertEquals(array(1, 3, 9), $this->factor->getFactors(9));
-        $this->assertEquals(array(1, 2, 5, 10), $this->factor->getFactors(10));
-        $this->assertEquals(array(1, 2, 3, 4, 6, 8, 12, 24), $this->factor->getFactors(24));
-        $this->assertEquals(array(1, 7, 49), $this->factor->getFactors(49));
+        $this->assertEquals(array(1), $this->factor->findFactors(1));
+        $this->assertEquals(array(1, 2), $this->factor->findFactors(2));
+        $this->assertEquals(array(1, 3, 9), $this->factor->findFactors(9));
+        $this->assertEquals(array(1, 2, 5, 10), $this->factor->findFactors(10));
+        $this->assertEquals(array(1, 2, 3, 4, 6, 8, 12, 24), $this->factor->findFactors(24));
+        $this->assertEquals(array(1, 7, 49), $this->factor->findFactors(49));
     }
 
     public function testGetPrimeFactors()

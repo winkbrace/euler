@@ -54,12 +54,12 @@ class Amicable
     public function getAmicablePartner($a)
     {
         // determine sum of divisors of a
-        $b = array_sum($this->factor->getDivisors($a));
+        $b = array_sum($this->factor->findDivisors($a));
         if ($a == $b)
             return false;
 
         // then check if sum of divisors of b equals a
-        $db = array_sum($this->factor->getDivisors($b));
+        $db = array_sum($this->factor->findDivisors($b));
         if ($db != $a)
             return false;
 

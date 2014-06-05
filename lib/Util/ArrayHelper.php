@@ -1,6 +1,6 @@
 <?php namespace Util;
 
-class Arrays
+class ArrayHelper
 {
     public static function incrementKeys(&$array, $n = 1)
     {
