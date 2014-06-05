@@ -109,7 +109,7 @@ class Prime
      */
     protected function readFirst50kPrimes()
     {
-        $lines = file(realpath(__DIR__ . '/../resources/first_50k_primes.txt'));
+        $lines = file(realpath(__DIR__ . '/../../resources/first_50k_primes.txt'));
         foreach ($lines as $line)
         {
             foreach (str_split($line, 7) as $prime)

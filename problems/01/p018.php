@@ -36,11 +36,14 @@ $string = '75
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23';
+
 $grid = explode(PHP_EOL, $string);
 foreach ($grid as $i => $line)
     $grid[$i] = explode(' ', $line);
 
-print_r($grid);
-
 // get the 8 best routes for 8 rows, then use those as starting point for the rest ?
 // that reduces options from 128 to 8
+
+$t = new \Paths\Triangle($grid);
+$route = $t->findBestRoute();
+print_r($route);
