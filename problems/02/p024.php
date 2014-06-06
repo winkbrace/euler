@@ -4,7 +4,10 @@
  * Lexicographic permutations
  * Problem 24
  *
- * A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic order. The lexicographic permutations of 0, 1 and 2 are:
+ * A permutation is an ordered arrangement of objects. For example, 3124 is one possible
+ * permutation of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically
+ * or alphabetically, we call it lexicographic order. The lexicographic permutations
+ * of 0, 1 and 2 are:
  *
  * 012   021   102   120   201   210
  *
@@ -66,7 +69,10 @@ function array_solution()
                                         $poolJ = array_diff($pool, array($a, $b, $c, $d, $e, $f, $g, $h, $i));
                                         $j = reset($poolJ);
                                         if (++$count == 1000000)
+                                        {
+                                            echo $a.$b.$c.$d.$e.$f.$g.$h.$i.$j.PHP_EOL;
                                             break(9);
+                                        }
                                     }
                                 }
                             }
@@ -76,6 +82,4 @@ function array_solution()
             }
         }
     }
-
-    echo $a.$b.$c.$d.$e.$f.$g.$h.$i.$j.PHP_EOL;
 }
