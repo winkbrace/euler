@@ -33,17 +33,24 @@ Answer: 669171001
  * f(7) = 261 (+160) .. hmm.. ik zie hier even geen verband..
  */
 
-function calculate($n)
-{
-    if ($n == 1)
-        return 1;
+//function calculate($n)
+//{
+//    if ($n == 1)
+//        return 1;
+//
+//    return 4 * pow($n-2, 2) + 10*($n-1) + calculate($n-2);
+//}
+//
+//for ($n=1; $n<=9; $n+=2)
+//{
+//    echo PHP_EOL."f($n) = ".calculate($n);
+//}
+//
+//echo PHP_EOL."f(1001) = ".calculate(1001); // note: requires xdebug.max_nesting_level = 1000
 
-    return 4 * pow($n-2, 2) + 10*($n-1) + calculate($n-2);
-}
+// or simply in a loop <_<
+$sum = 1;
+for ($n=3; $n<=1001; $n+=2)
+    $sum += 4 * pow($n-2, 2) + 10*($n-1);
 
-for ($n=1; $n<=9; $n+=2)
-{
-    echo PHP_EOL."f($n) = ".calculate($n);
-}
-
-echo PHP_EOL."f(1001) = ".calculate(1001); // note: requires xdebug.max_nesting_level = 1000
+echo $sum;
