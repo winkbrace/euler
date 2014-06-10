@@ -14,21 +14,9 @@
  * What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
  */
 
-// this really looks like it needs recursion
-// and I should use bitwise ANDs and 10bits!
-
-bits_solution();
-
-/**
- * this bits solution took
- */
-function bits_solution()
-{
-    $count = 0;
-
-    $pool = 0b1111111111;
-    // bleh etc
-}
+// script duration: 0.0090069770812988
+$c = new \Math\Combination();
+echo $c->findLexicographicPermutationAtIndex('0123456789', 1000000);
 
 /**
  * this array solution took 50 seconds:

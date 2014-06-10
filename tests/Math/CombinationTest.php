@@ -33,6 +33,10 @@ class CombinationTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Combination();
 
+        $pool = implode('', range(0,9));
+        $perm = $c->findLexicographicPermutationAtIndex($pool, 1000000);
+        $this->assertEquals('2783915460', $perm);
+
         // 012   021   102   120   201   210
         $pool = '012';
         $perm = $c->findLexicographicPermutationAtIndex($pool, 3);

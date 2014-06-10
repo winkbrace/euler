@@ -2,8 +2,6 @@
 
 class Combination
 {
-    /** @var int */
-    protected $countdown;
     /** @var array */
     protected $permutations;
 
@@ -56,9 +54,36 @@ class Combination
      */
     public function findLexicographicPermutationAtIndex($pool, $index)
     {
-        $this->countdown = $index;
-        $permutations = $this->createPermutations($pool);
-        return $permutations[$index - 1];
+        /*
+         * Let's enumerate the permutations starting with index 0. Then were going to find the permutation with
+         * index 999999. The permutation with index 0 is 0123456789. We shall also enumerate the digits
+         * "available for use" in the same way, i.e. starting with index 0. At the beginning, those digits will
+         * be 0123456789 (in that order). We now write 999999 = 2 * 9! + 274239. The quotient 2 gives the index
+         * (in 0123456789) of the first digit: 2. Remove that digit from the available digits: 013456789.
+         * Next, we write 274239 = 6 * 8! + 32319. The quotient 6 again gives the index (now in 013456789) of
+         * the second digit: 7. Remove that digit from the available digits: 01345689. Continue in this way,
+         * dividing by n!, until (including) n=0. The quotients will be (from the beginning):
+         * 2, 6, 6, 2, 5, 1, 2, 1, 1 and 0, giving the digits 2, 7, 8, 3, 9, 1, 5, 4, 6 and 0.
+         * The searched for permutation is: 2783915460
+         */
+
+        $pool = str_split($pool);
+        sort($pool);
+
+        $goal = $index - 1;
+        $result = '';
+
+        for ($i=count($pool)-1; $i>=0; $i--) // we loop over the lengths
+        {
+            $fact = $this->fact($i);
+            $q = (int) ($goal / $fact);
+            $taken = array_splice($pool, $q, 1);  // remove the item at index == quotient from the pool
+            $result .= $taken[0];
+
+            $goal = $goal % $fact;
+        }
+
+        return $result;
     }
 
     /**
@@ -67,7 +92,7 @@ class Combination
      */
     public function createPermutations($pool)
     {
-        $pool = array_unique(str_split($pool));
+        $pool = str_split($pool);
         sort($pool);
 
         $this->permutations = array();
