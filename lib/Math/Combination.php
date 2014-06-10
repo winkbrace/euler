@@ -4,6 +4,8 @@ class Combination
 {
     /** @var int */
     protected $countdown;
+    /** @var array */
+    protected $permutations;
 
 
     /**
@@ -55,30 +57,45 @@ class Combination
     public function findLexicographicPermutationAtIndex($pool, $index)
     {
         $this->countdown = $index;
-        $pool = array_unique(str_split($pool));
-        sort($pool);
-        return $this->traversePermutations($pool);
+        $permutations = $this->createPermutations($pool);
+        return $permutations[$index - 1];
     }
 
-    protected function traversePermutations(array $pool, array $taken = array())
+    /**
+     * @param string $pool
+     * @return array
+     */
+    public function createPermutations($pool)
     {
-        $left = array_diff($pool, $taken);
-        $takenNow = $taken;
-        foreach ($left as $val)
+        $pool = array_unique(str_split($pool));
+        sort($pool);
+
+        $this->permutations = array();
+        $this->gatherPermutations($pool);
+        sort($this->permutations);
+
+        return $this->permutations;
+    }
+
+    /**
+     * This is not ideal, because the permutations are not created in sequence. Therefore
+     * the result needs to be ordered after gathering.
+     * @param array $pool
+     * @param array $permutations
+     */
+    protected function gatherPermutations(array $pool, array $permutations = array())
+    {
+        if (empty($pool))
+            $this->permutations[] = implode('', $permutations);
+
+        for ($i = count($pool) - 1; $i >= 0; --$i)
         {
-            $takenNow[] = $val;
-            echo PHP_EOL.implode('', $takenNow);
-            if (count($left) == 1)
-            {
-                if ($this->countdown-- == 0)
-                    return implode('', $takenNow);
-            }
-            else
-            {
-                $result = $this->traversePermutations($left, $takenNow);
-                if (! empty($result))
-                    return $result;
-            }
+            $newPool = $pool;
+            $newPermutations = $permutations;
+            list($foo) = array_splice($newPool, $i, 1);
+            array_unshift($newPermutations, $foo);
+
+            $this->gatherPermutations($newPool, $newPermutations);
         }
     }
 }

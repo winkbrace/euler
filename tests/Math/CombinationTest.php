@@ -20,6 +20,15 @@ class CombinationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3060, $c->nCr(18, 4));
     }
 
+    public function testCreatePermutations()
+    {
+        $c = new Combination();
+        $pool = '012';
+        $permutations = $c->createPermutations($pool);
+        $expected = array('012', '021', '102', '120', '201', '210');
+        $this->assertEquals($expected, $permutations);
+    }
+
     public function testFindLexiPermutationAt()
     {
         $c = new Combination();
@@ -28,5 +37,7 @@ class CombinationTest extends \PHPUnit_Framework_TestCase
         $pool = '012';
         $perm = $c->findLexicographicPermutationAtIndex($pool, 3);
         $this->assertEquals('102', $perm);
+        $perm = $c->findLexicographicPermutationAtIndex($pool, 4);
+        $this->assertEquals('120', $perm);
     }
 }

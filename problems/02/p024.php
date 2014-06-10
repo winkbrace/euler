@@ -26,7 +26,7 @@ function bits_solution()
 {
     $count = 0;
 
-    $pool = bindec('1111111111');
+    $pool = 0b1111111111;
     // bleh etc
 }
 
