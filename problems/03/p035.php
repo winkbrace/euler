@@ -19,7 +19,6 @@ use Util\Log;
 
 $p = Prime::getInstance();
 $log = new Log();
-$log->start();
 
 // runs 7.7 secs
 function search_by_list_of_primes(Prime $p, Log $log)

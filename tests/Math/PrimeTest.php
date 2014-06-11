@@ -20,7 +20,7 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->prime->isPrime(1));
     }
 
-    public function testOneAndTwo()
+    public function testTwo()
     {
         $this->assertTrue($this->prime->isPrime(2));
     }
@@ -68,5 +68,11 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
     public function testCircularPrime()
     {
         $this->assertTrue($this->prime->isCircularPrime(13));  // 13 and 31 are prime
+    }
+
+    public function testIsTruncatable()
+    {
+        $this->assertTrue($this->prime->isTruncatable(3797));
+        $this->assertFalse($this->prime->isTruncatable(269));
     }
 }

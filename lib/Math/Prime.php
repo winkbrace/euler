@@ -4,13 +4,21 @@ use String\Rotation;
 
 class Prime
 {
-    const MAX_IN_FILE = 611953;
+    const MAX_IN_FILE = 1299827;
 
     /** @var int[] */
     protected $primes = array();
+    /** @var array */
+    protected $flippedPrimes = array();
 
     /** @var \Math\Prime */
     protected static $instance;
+
+
+    protected function __construct()
+    {
+        $this->readFirst100kPrimes();
+    }
 
     /**
      * It is handy to have only 1 Prime instance, so the file with first 50k primes will only be read once.
@@ -18,10 +26,10 @@ class Prime
      */
     public static function getInstance()
     {
-        if (empty(self::$instance))
-            self::$instance = new self();
+        if (empty(static::$instance))
+            static::$instance = new static();
 
-        return self::$instance;
+        return static::$instance;
     }
 
     /**
@@ -33,10 +41,10 @@ class Prime
         if ($n < 2)
             return false;
 
-        if ($n > self::MAX_IN_FILE)
+        if ($n > static::MAX_IN_FILE)
             return $this->calculateIsPrime($n);
 
-        return in_array($n, $this->getPrimes());
+        return isset($this->flippedPrimes[$n]);
     }
 
     /**
@@ -61,6 +69,27 @@ class Prime
     }
 
     /**
+     * @param int $n
+     * @return bool
+     */
+    public function isTruncatable($n)
+    {
+        $str = (string) $n;
+        while ($str = substr($str, 1))
+        {
+            if (! $this->isPrime($str))
+                return false;
+        }
+        $str = (string) $n;
+        while ($str = substr($str, 0, -1))
+        {
+            if (! $this->isPrime($str))
+                return false;
+        }
+        return true;
+    }
+
+    /**
      * we only have to check all prime numbers to see if a number is a prime number
      * when we find one, we add it to the array
      * @param int $n
@@ -69,11 +98,13 @@ class Prime
     protected function calculateIsPrime($n)
     {
         $root = ceil(sqrt($n));
-        foreach ($this->getPrimes() as $p)
+        $count = count($this->primes);
+        foreach ($this->primes as $p)
         {
             if ($p > $root)
             {
                 $this->primes[] = $n;
+                $this->flippedPrimes[$n] = ++$count;
                 return true;
             }
 
@@ -83,21 +114,20 @@ class Prime
     }
 
     /**
-     * @return int[]
-     */
-    public function getPrimes()
-    {
-        return $this->primes ?: $this->readFirst50kPrimes();
-    }
-
-    /**
      * @param int $n
      * @return int
      */
     public function getNthPrime($n)
     {
-        $primes = $this->getPrimes();
-        return $primes[$n - 1];
+        return $this->primes[$n - 1];
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getPrimes()
+    {
+        return $this->primes;
     }
 
     /**
@@ -106,12 +136,12 @@ class Prime
      */
     public function getPrimesTo($n)
     {
-        if ($n > self::MAX_IN_FILE)
-            return $this->getPrimes();
+        if ($n > static::MAX_IN_FILE)
+            return $this->primes;
 
         $primes = array();
 
-        foreach ($this->getPrimes() as $p)
+        foreach ($this->primes as $p)
         {
             if ($p > $n)
                 break;
@@ -142,22 +172,22 @@ class Prime
         return $factors;
     }
 
-    /**
-     * @return int[]
-     */
-    protected function readFirst50kPrimes()
+    protected function readFirst100kPrimes()
     {
-        $lines = file(realpath(__DIR__ . '/../../resources/first_50k_primes.txt'));
+        $i = 0;
+        $lines = file(realpath(__DIR__ . '/../../resources/first_100k_primes.txt'));
         foreach ($lines as $line)
         {
-            foreach (str_split($line, 7) as $prime)
+            foreach (str_split($line, 8) as $prime)
             {
                 $prime = trim($prime);
                 if (! empty($prime))
-                    $this->primes[] = $prime;
+                {
+                    $this->primes[$i] = $prime;
+                    $this->flippedPrimes[$prime] = $i;
+                    $i++;
+                }
             }
         }
-
-        return $this->primes;
     }
 }

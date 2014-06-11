@@ -111,7 +111,7 @@ class Factor
      */
     public function getSmallestFactorStepOfRange($from, $to)
     {
-        $p = new Prime();
+        $p = Prime::getInstance();
         $primes = $p->getPrimesTo($to);
         $primes = array_filter($primes, function($x) use ($from) { return $x > $from; });
         return array_product($primes);

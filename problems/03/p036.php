@@ -15,7 +15,6 @@
 
 $pal = new \String\Palindrome();
 $log = new \Util\Log();
-$log->start();
 
 // create array of palindrome decimal digits
 $range = range(0,9);
