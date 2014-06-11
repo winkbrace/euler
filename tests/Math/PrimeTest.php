@@ -7,7 +7,7 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->prime = new Prime();
+        $this->prime = Prime::getInstance();
     }
 
     public function testZero()
@@ -63,5 +63,10 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
     public function testGetNthPrime()
     {
         $this->assertEquals(13, $this->prime->getNthPrime(6));
+    }
+
+    public function testCircularPrime()
+    {
+        $this->assertTrue($this->prime->isCircularPrime(13));  // 13 and 31 are prime
     }
 }

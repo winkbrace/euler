@@ -1,5 +1,7 @@
 <?php namespace Math;
 
+use String\Rotation;
+
 class Prime
 {
     const MAX_IN_FILE = 611953;
@@ -35,6 +37,27 @@ class Prime
             return $this->calculateIsPrime($n);
 
         return in_array($n, $this->getPrimes());
+    }
+
+    /**
+     * Example: The number 197 is called a circular prime because all rotations of the digits:
+     * 197, 971, and 719, are themselves prime.
+     * @param int $n
+     * @return bool
+     */
+    public function isCircularPrime($n)
+    {
+        // circular prime is only possible if all digits are 1, 3, 7 or 9
+        if ($n > 5 && $n != str_replace(array(2,4,5,6,8,0), '', $n))
+            return false;
+
+        foreach (Rotation::getAllRotations($n) as $x)
+        {
+            if (! $this->isPrime($x))
+                return false;
+        }
+
+        return true;
     }
 
     /**
