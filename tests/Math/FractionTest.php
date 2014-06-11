@@ -31,5 +31,19 @@ class FractionTest extends \PHPUnit_Framework_TestCase
         $n = $this->fraction->getFraction(1, 7, 100);
         $this->assertEquals('142857', $this->fraction->getRecurringCycle($n));
     }
+
+    public function testSimplify()
+    {
+        list($n, $d) = $this->fraction->simplify(2, 10);
+        $this->assertEquals(5, $d);
+        $this->assertEquals(1, $n);
+    }
+
+    public function testComplexerSimplify()
+    {
+        list($n, $d) = $this->fraction->simplify(3*5*2*2*7, 3*5*2*2*6*11);
+        $this->assertEquals(66, $d);
+        $this->assertEquals(7, $n);
+    }
 }
  

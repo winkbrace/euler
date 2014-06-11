@@ -67,4 +67,26 @@ class Fraction
 
         return $output;
     }
+
+    /**
+     * @param int $numerator
+     * @param int $divisor
+     * @return array(n, d)
+     */
+    public function simplify($numerator, $divisor)
+    {
+        $n = gmp_init($numerator);
+        $d = gmp_init($divisor);
+
+        $one = gmp_init('1');
+        $gcd = gmp_gcd($n, $d);
+        while (gmp_cmp($gcd, $one) == 1)  // while gcd > 1
+        {
+            $n = gmp_div($n, $gcd);
+            $d = gmp_div($d, $gcd);
+            $gcd = gmp_gcd($n, $d);
+        }
+
+        return array(gmp_strval($n), gmp_strval($d));
+    }
 }
