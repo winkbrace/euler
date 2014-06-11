@@ -14,7 +14,7 @@ class Pandigital
      */
     public function isPandigital($n)
     {
-        //$n = (string) $n;  for performance we want to assume correct input
+        $n = (string) $n;
         $len = strlen($n);
         for ($i=1; $i<=$len; $i++)
         {
