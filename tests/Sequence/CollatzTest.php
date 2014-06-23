@@ -1,12 +1,12 @@
-<?php namespace Math; 
+<?php namespace Sequence;
 
 class CollatzTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetNext()
     {
         $c = new Collatz();
-        $this->assertEquals(40, $c->createNext(13));
-        $this->assertEquals(20, $c->createNext(40));
+        $this->assertEquals(40, $c->next(13));
+        $this->assertEquals(20, $c->next(40));
     }
 
     public function testCreateSequence()

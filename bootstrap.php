@@ -5,7 +5,7 @@ if (! function_exists('vd'))
 {
     function vd($var)
     {
-        var_dump($var);
+        array_map(function($x) { var_dump($x); }, func_get_args());
         die;
     }
 }

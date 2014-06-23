@@ -1,11 +1,11 @@
-<?php namespace Math; 
+<?php namespace Sequence;
 
 class FibonacciTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreation()
     {
         $f = new Fibonacci();
-        $this->assertInstanceOf('\\Math\\Fibonacci', $f);
+        $this->assertInstanceOf('\\Sequence\\Fibonacci', $f);
         $this->assertEquals(array(1, 1), $f->getSequence());
     }
 

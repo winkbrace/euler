@@ -30,7 +30,9 @@ F12 = 144
  * Answer: 4782
  */
 
-$f = new \Math\Fibonacci();
+use Sequence\Fibonacci;
+
+$f = new Fibonacci();
 while (strlen($f->next()) < 1000)
     ;
 

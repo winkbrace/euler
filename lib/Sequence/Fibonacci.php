@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Sequence;
 
 class Fibonacci
 {

@@ -13,7 +13,9 @@
  * find the sum of the even-valued terms.
  */
 
-$f = new \Math\Fibonacci();
+use Sequence\Fibonacci;
+
+$f = new Fibonacci();
 $f->createSequenceTo(4000000);
 
 $result = array_filter($f->getSequence(), function($n) {

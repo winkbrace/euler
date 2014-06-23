@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Sequence;
 
 class Collatz
 {
@@ -13,7 +13,7 @@ class Collatz
         while ($n > 1)
         {
             $this->sequence[] = $n;
-            $n = $this->createNext($n);
+            $n = $this->next($n);
         }
         $this->sequence[] = 1;
 
@@ -24,7 +24,7 @@ class Collatz
      * @param int $n
      * @return int
      */
-    public function createNext($n)
+    public function next($n)
     {
         if ($n % 2 == 0)
             return $n / 2;
