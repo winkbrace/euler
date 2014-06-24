@@ -14,6 +14,31 @@
  * 645 = 3 × 5 × 43
  * 646 = 2 × 17 × 19.
  *
- * Find the first four consecutive integers to have four distinct prime factors. What is the first of these numbers?
+ * Find the first four consecutive integers to have four distinct prime factors.
+ * What is the first of these numbers?
+ *
+ * Answer: 238203 (first to have 5 consecutive integers of four distinct prime factors: 357642)
  */
- 
+$log = new \Util\Log();
+$factor = new \Math\Factor();
+
+$primeFactors = array();
+for ($x=1000; $x<=999999; $x++)
+{
+    if ($x % 10000 == 0)
+        $log->log("$x numbers checked so far");
+
+    for ($i=0; $i<=3; $i++)
+    {
+        $primeFactors[$i] = $factor->getPrimeFactors($x+$i);
+        if (count($primeFactors[$i]) != 4) {
+            $x += $i;
+            continue 2;
+        }
+    }
+    break;
+}
+
+print_r($primeFactors);
+
+$log->solution($x);
