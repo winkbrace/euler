@@ -1,5 +1,7 @@
 <?php namespace Sequence;
 
+use Util\Integer;
+
 /**
  * 1 => 1   = 1 * 1     => 1 = 1 + 1 / 2        => f(x) = x * (x + 1) / 2 = 0.5 * (x^2 + x) = 0.5x^2 + 0.5x = 0.5x * (x + 1)
  * 2 => 3   = 2 * 1.5   => 1.5 = (2 + 1) / 2
@@ -36,7 +38,7 @@ class TriangleNumber
          * a = 1, b = 1, c = -2n
          *
          * D = b^2 - 4ac = 1^2 - 4 x 1 x -2n = 1 + 8n
-         * x = (-b - sqrt(D)) / 2 of x = (-b + sqrt(D)) / 2
+         * x = (-b - sqrt(D)) / 2a of x = (-b + sqrt(D)) / 2a
          * x = (-1 - sqrt(1+8n)) / 2  of  x = (-1 + sqrt(1+8n)) / 2
          *
          * Oplossing:
@@ -48,6 +50,6 @@ class TriangleNumber
     public function isTriangleNumber($n)
     {
         $i = $this->getIndexOf($n);
-        return strpos($i, '.') === false;
+        return Integer::isInteger($i);
     }
 } 

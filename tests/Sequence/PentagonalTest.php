@@ -32,6 +32,13 @@ class PentagonalTest extends \PHPUnit_Framework_TestCase
         $expected = array(1 => 1, 5, 12, 22, 35, 51, 70, 92, 117, 145);
         $this->assertEquals($expected, $sequence);
     }
+
+    public function testCreateSequenceTo()
+    {
+        $sequence = $this->pentagonal->createSequenceTo(100);
+        $expected = array(1 => 1, 5, 12, 22, 35, 51, 70, 92);
+        $this->assertEquals($expected, $sequence);
+    }
     
     public function testGetIndexOf()
     {

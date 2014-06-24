@@ -11,13 +11,16 @@
  *
  * Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and
  * D = |Pk − Pj| is minimised; what is the value of D?
+ *
+ * Answer:
  */
 $log = new \Util\Log();
 $pen = new \Sequence\Pentagonal();
 
-$seq = $pen->createSequenceOfLength(100);
+$seq = $pen->createSequenceOfLength(10000);
 
 $found = array();
+$count = 0;
 foreach ($seq as $k => $pk)
 {
     foreach ($seq as $j => $pj)
@@ -30,8 +33,14 @@ foreach ($seq as $k => $pk)
         if (! $pen->isPentagonal($diff))
             continue;
 
-        $found[] = compact($k, $j, $pk, $pj);
+        $found[] = compact('k', 'j', 'pk', 'pj');
+        break 2; // after running it for 10k * 10k = 100M cases, I found only 1
     }
+    $count += count($seq);
+    if ($count % 100000 == 0)
+        $log->log("$count numbers checked. ".count($found)." found so far.");
 }
 
 print_r($found);
+
+$log->solution(abs($found[0]['pk'] - $found[0]['pj']));

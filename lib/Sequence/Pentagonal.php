@@ -1,14 +1,13 @@
 <?php namespace Sequence;
 
+use Util\Integer;
+
 /**
  * Pn=n(3n−1)/2
  * 1, 5, 12, 22, 35, 51, 70, 92, 117, 145, ...
  */
-class Pentagonal implements SequenceInterface
+class Pentagonal extends Sequence
 {
-    protected $sequence = array();
-    protected $index = 0;
-
     /**
      * @param int $x
      * @return int
@@ -20,18 +19,27 @@ class Pentagonal implements SequenceInterface
 
     public function getIndexOf($n)
     {
+        // y = (3x^2 - x) / 2 = 1.5x^2 - 0.5x
         // 0 = 1.5x^2 - 0.5x - y
         // a = 1.5, b = -0.5, c=-y
-        // D = b^2 - 4ac = -0.25 - 4*1.5*-y = -0.25 + 6y = 6y - 0.25
-        // x = (-b +/- sqrt(D)) / 2
-        // x = (-0.25 +/- sqrt(6y - 0.25)) / 2 = -0.125 +/- 0.5sqrt(6y - 0.25)
-        return -0.125 + (0.5 * sqrt((6 * $n) - 0.25));
+        // D = b^2 - 4ac = 0.25 - 4*1.5*-y = 0.25 + 6y = 6y + 0.25
+        // x = (-b +/- sqrt(D)) / 2a
+        // x = (0.5 +/- sqrt(6y + 0.25)) / 3
+        return (0.5 + sqrt((6 * $n) + 0.25)) / 3;
     }
 
     public function createSequenceOfLength($n)
     {
         for ($i=1; $i<=$n; $i++)
-            $this->sequence[$this->index + 1] = $this->next();
+            $this->sequence[$i] = $this->next();
+
+        return $this->sequence;
+    }
+
+    public function createSequenceTo($n)
+    {
+        while (($value = $this->next()) <= $n)
+            $this->sequence[$this->index] = $value;
 
         return $this->sequence;
     }
@@ -41,18 +49,9 @@ class Pentagonal implements SequenceInterface
         return $this->getNumberAt(++$this->index);
     }
 
-    public function isPentagonal()
+    public function isPentagonal($n)
     {
-
-    }
-
-    public function createSequenceTo($n)
-    {
-        // TODO: Implement createSequenceTo() method.
-    }
-
-    public function getSequence()
-    {
-        // TODO: Implement getSequence() method.
+        $i = $this->getIndexOf($n);
+        return Integer::isInteger($i);
     }
 }
