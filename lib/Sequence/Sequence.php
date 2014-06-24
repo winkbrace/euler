@@ -34,6 +34,12 @@ abstract class Sequence
         return $this->getNumberAt(++$this->index);
     }
 
+    public function reset()
+    {
+        $this->index = 0;
+        $this->sequence = array();
+    }
+
     /**
      * @return int[]
      */
