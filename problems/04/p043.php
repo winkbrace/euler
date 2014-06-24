@@ -17,5 +17,32 @@
  * d8d9d10=289 is divisible by 17
  *
  * Find the sum of all 0 to 9 pandigital numbers with this property.
+ *
+ * Answer: 16695334890
  */
- 
+
+$log = new \Util\Log();
+$com = new \Math\Combination();
+
+$fibonacci = array(1 => 2, 3, 5, 7, 11, 13, 17);
+
+$found = array();
+foreach ($com->createPermutations('0123456789') as $i => $n)
+{
+    foreach ($fibonacci as $pos => $f)
+    {
+        if (subthree($n, $pos) % $f !== 0)
+            continue 2;
+    }
+    $found[] = $n;
+    if ($i % 1000 == 0)
+        $log->log("$i numbers checked. Found ".count($found)." numbers so far.");
+}
+
+print_r($found);
+$log->solution(array_sum($found));
+
+function subthree($n, $pos)
+{
+    return (int) substr($n, $pos, 3);
+}
