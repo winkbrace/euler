@@ -23,6 +23,11 @@ foreach ($prime->getPrimesTo(10000) as $n)
         continue;
 
     $perms = $comb->createPermutations($n);
+    $perms = array_unique($perms); // to eliminate duplicates due to same digits (e.g. 8999)
+
+    if (count($perms) < 3)
+        continue;
+
     foreach ($perms as $i => $x)
     {
         if (! $prime->isPrime($x))
@@ -34,5 +39,18 @@ foreach ($prime->getPrimesTo(10000) as $n)
         $collection[$n] = $perms;
 }
 
-print_r($collection);
+//print_r($collection);
 $log->log(count($collection).' possible permutatable primes found');
+
+$found = array();
+foreach ($collection as $nrs)
+{
+    $diffs = \Util\ArrayHelper::getAllDifferences($nrs);
+    foreach ($diffs as $d => $sets)
+    {
+        if (count($sets) >= 3)
+            $found[] = $sets;
+    }
+}
+
+print_r($found);
