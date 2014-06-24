@@ -1,5 +1,6 @@
 vendor/
 composer.lock
+resources/first_1M_composites.txt
 
 #################
 ## PhpStorm
