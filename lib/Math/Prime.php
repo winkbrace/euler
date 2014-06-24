@@ -22,7 +22,7 @@ class Prime
 
     /**
      * It is handy to have only 1 Prime instance, so the file with first 100k primes will only be read once.
-     * @return Prime
+     * @return \Math\Prime
      */
     public static function getInstance()
     {
