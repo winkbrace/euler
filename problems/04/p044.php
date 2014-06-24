@@ -12,7 +12,7 @@
  * Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and
  * D = |Pk − Pj| is minimised; what is the value of D?
  *
- * Answer:
+ * Answer: 5482660 (k=2167, j=1020, pk=7042750, pj=1560090)
  */
 $log = new \Util\Log();
 $pen = new \Sequence\Pentagonal();

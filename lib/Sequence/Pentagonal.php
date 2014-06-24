@@ -28,27 +28,6 @@ class Pentagonal extends Sequence
         return (0.5 + sqrt((6 * $n) + 0.25)) / 3;
     }
 
-    public function createSequenceOfLength($n)
-    {
-        for ($i=1; $i<=$n; $i++)
-            $this->sequence[$i] = $this->next();
-
-        return $this->sequence;
-    }
-
-    public function createSequenceTo($n)
-    {
-        while (($value = $this->next()) <= $n)
-            $this->sequence[$this->index] = $value;
-
-        return $this->sequence;
-    }
-
-    public function next()
-    {
-        return $this->getNumberAt(++$this->index);
-    }
-
     public function isPentagonal($n)
     {
         $i = $this->getIndexOf($n);

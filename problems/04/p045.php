@@ -11,4 +11,27 @@
  * It can be verified that T285 = P165 = H143 = 40755.
  *
  * Find the next triangle number that is also pentagonal and hexagonal.
+ *
+ * Answer: 1533776805
  */
+
+$log = new \Util\Log();
+$tri = new \Sequence\TriangleNumber();
+$pen = new \Sequence\Pentagonal();
+$hex = new \Sequence\Hexagonal();
+
+$found = array();
+while ($n = $hex->next())
+{
+    if (! $pen->isPentagonal($n))
+        continue;
+    if (! $tri->isTriangleNumber($n))
+        continue;
+    $found[] = $n;
+    if ($n > 40755)
+        break;
+}
+
+print_r($found);
+
+$log->solution(max($found));

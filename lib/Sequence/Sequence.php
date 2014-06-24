@@ -7,15 +7,32 @@ abstract class Sequence
     /** @var int */
     protected $index = 0;
 
+
     abstract public function getNumberAt($x);
 
     abstract public function getIndexOf($n);
 
-    abstract public function createSequenceTo($n);
 
-    abstract public function createSequenceOfLength($n);
+    public function createSequenceOfLength($n)
+    {
+        for ($i=1; $i<=$n; $i++)
+            $this->sequence[$i] = $this->next();
 
-    abstract public function next();
+        return $this->sequence;
+    }
+
+    public function createSequenceTo($n)
+    {
+        while (($value = $this->next()) <= $n)
+            $this->sequence[$this->index] = $value;
+
+        return $this->sequence;
+    }
+
+    public function next()
+    {
+        return $this->getNumberAt(++$this->index);
+    }
 
     /**
      * @return int[]
