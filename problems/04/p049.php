@@ -11,6 +11,8 @@
  * but there is one other 4-digit increasing sequence.
  *
  * What 12-digit number do you form by concatenating the three terms in this sequence?
+ *
+ * Answer: 296962999629 (amazingly enough the difference here is also 3330)
  */
 $log = new \Util\Log();
 $prime = \Math\Prime::getInstance();
@@ -39,7 +41,6 @@ foreach ($prime->getPrimesTo(10000) as $n)
         $collection[$n] = $perms;
 }
 
-//print_r($collection);
 $log->log(count($collection).' possible permutatable primes found');
 
 $found = array();
@@ -48,9 +49,12 @@ foreach ($collection as $nrs)
     $diffs = \Util\ArrayHelper::getAllDifferences($nrs);
     foreach ($diffs as $d => $sets)
     {
-        if (count($sets) >= 3)
-            $found[] = $sets;
+        // there must be 2 differences and the high number of the first set must equal the low number of the last set
+        if (count($sets) == 2 && $sets[0][1] == $sets[1][0])
+            $found[] = [$sets[0][0], $sets[0][1], $sets[1][1]];
     }
 }
 
 print_r($found);
+
+$log->solution(implode('', $found[1]));
