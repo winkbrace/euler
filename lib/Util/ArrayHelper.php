@@ -33,4 +33,27 @@ class ArrayHelper
 
         return $diff;
     }
+
+    /**
+     * @param array $array
+     * @param int   $length
+     * @return array
+     */
+    public static function tail($array, $length=10)
+    {
+        if (count($array) <= $length)
+            return $array;
+
+        $value = end($array);
+        $key = key($array);
+        $output = array($key => $value);
+        while (count($output) < $length)
+        {
+            $value = prev($array);
+            $key = key($array);
+            $output[$key] = $value;
+        }
+
+        return $output;
+    }
 }
