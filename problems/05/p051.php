@@ -13,5 +13,47 @@
  *
  * Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits) with the
  * same digit, is part of an eight prime value family.
+ *
+ * The answer is: 121313
  */
- 
+
+$log = new \Util\Log();
+$prime = \Math\Prime::getInstance();
+
+foreach ($prime->getPrimes() as $count => $n)
+{
+    for ($i=0; $i<strlen($n); $i++)
+    {
+        $foundSingles = array();
+        $foundMultiples = array();
+        for ($x=0; $x<=9; $x++)
+        {
+            $a = substr_replace($n, $x, $i, 1);
+            if ($prime->isPrime($a))
+                $foundSingles[] = $a;
+
+            $c = substr($n, $i, 1);
+            if (substr_count($n, $c) > 1)
+            {
+                $a = str_replace($c, $x, $n);
+                if ($prime->isPrime($a))
+                    $foundMultiples[] = $a;
+            }
+        }
+        if (count($foundSingles) >= 8)
+        {
+            print_r($foundSingles);
+            break 2;
+        }
+        if (count($foundMultiples) >= 8)
+        {
+            print_r($foundMultiples);
+            break 2;
+        }
+    }
+
+    if ($count % 1000 == 0)
+        $log->log($count . " primes processed so far. Currently at " . $n);
+}
+
+$log->solution(min($foundMultiples));
