@@ -15,7 +15,7 @@
  */
 
 // script duration: 0.0090069770812988
-$c = new \Math\Combination();
+$c = new \Math\Combinatorics();
 echo $c->findLexicographicPermutationAtIndex('0123456789', 1000000);
 
 /**

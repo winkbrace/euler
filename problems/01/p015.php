@@ -20,7 +20,7 @@
 // routes: rrrrdd, rrrdrd, rrrddr, rrdrrd, rrdrdr, rrddrr, rdrrrd, rdrrdr, rdrdrr, rddrrrr
 //         drrrrd, drrrdr, drrdrr, drdrrr, ddrrrr
 
-$c = new \Math\Combination();
+$c = new \Math\Combinatorics();
 echo $c->nCr(4, 2).PHP_EOL;
 echo $c->nCr(5, 2).PHP_EOL;
 echo $c->nCr(6, 2).PHP_EOL;

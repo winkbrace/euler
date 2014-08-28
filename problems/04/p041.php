@@ -13,7 +13,9 @@
 $log = new \Util\Log();
 
 $prime = \Math\Prime::getInstance();
-$com = new \Math\Combination();
+$com = new \Math\Combinatorics();
+
+$panPrimes = array(); // for IDE
 
 // get all combinations of 1 through n and check if they are prime
 for ($i=9; $i>0; $i--)

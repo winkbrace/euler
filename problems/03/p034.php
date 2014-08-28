@@ -13,7 +13,7 @@
  * Answer: 40730
  */
 
-$c = new \Math\Combination();
+$c = new \Math\Combinatorics();
 
 // collect factorials in array for speed
 $facts = array();

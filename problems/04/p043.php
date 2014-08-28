@@ -22,7 +22,7 @@
  */
 
 $log = new \Util\Log();
-$com = new \Math\Combination();
+$com = new \Math\Combinatorics();
 
 $fibonacci = array(1 => 2, 3, 5, 7, 11, 13, 17);
 

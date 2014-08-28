@@ -1,6 +1,6 @@
 <?php namespace Math;
 
-class Combination
+class Combinatorics
 {
     /** @var array */
     protected $permutations;
@@ -45,10 +45,72 @@ class Combination
     }
 
     /**
+     * @param array|string $pool
+     * @param int $r combination group size. If null all sizes will be created
+     * @return int[]
+     */
+    public function createCombinations($pool, $r = null)
+    {
+        if (is_string($pool))
+            $pool = str_split($pool);
+
+        $combinations = array();
+
+        for ($i=1; $i<=count($pool); $i++)
+        {
+            if (empty($r) || $r == $i)
+            {
+                foreach ($this->createCombinationsOfSize($pool, $i) as $combo)
+                    $combinations[] = $combo;
+            }
+        }
+
+        return $combinations;
+    }
+
+    protected function createCombinationsOfOne(array $pool)
+    {
+        $combinations = array();
+
+        foreach ($pool as $x)
+            $combinations[] = array($x);
+
+        return $combinations;
+    }
+
+    /**
+     * @param array $pool
+     * @param int $r
+     * @return array
+     */
+    protected function createCombinationsOfSize(array $pool, $r)
+    {
+        if (count($pool) < $r)
+            return array();
+
+        if ($r == 1)
+            return $this->createCombinationsOfOne($pool);
+
+        $combinations = array();
+
+        $x = array_shift($pool);
+        foreach ($this->createCombinationsOfSize($pool, $r-1) as $combo)
+        {
+            array_unshift($combo, $x);
+            $combinations[] = $combo;
+        }
+
+        foreach ($this->createCombinationsOfSize($pool, $r) as $c)
+            $combinations[] = $c;
+
+        return $combinations;
+    }
+
+    /**
      * find nth lexicographic permutation of $pool
      * A lexicographic permutation is an alphabetically ordered list of permutations
      *
-     * @param string $pool
+     * @param string|array $pool
      * @param int $index
      * @return string
      */
@@ -67,7 +129,8 @@ class Combination
          * The searched for permutation is: 2783915460
          */
 
-        $pool = str_split($pool);
+        if (is_string($pool))
+            $pool = str_split($pool);
         sort($pool);
 
         $goal = $index - 1;
@@ -87,12 +150,14 @@ class Combination
     }
 
     /**
-     * @param string $pool
+     * In a permutation the order matters
+     * @param string|array $pool
      * @return array
      */
     public function createPermutations($pool)
     {
-        $pool = str_split($pool);
+        if (is_string($pool))
+            $pool = str_split($pool);
         sort($pool);
 
         $this->permutations = array();
@@ -103,8 +168,8 @@ class Combination
     }
 
     /**
-     * This is not ideal, because the permutations are not created in sequence. Therefore
-     * the result needs to be ordered after gathering.
+     * This is not ideal, because the permutations are not created in sequence.
+     * Therefore the result needs to be ordered after gathering.
      * @param array $pool
      * @param array $permutations
      */

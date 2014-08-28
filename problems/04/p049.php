@@ -16,7 +16,7 @@
  */
 $log = new \Util\Log();
 $prime = \Math\Prime::getInstance();
-$comb = new \Math\Combination();
+$comb = new \Math\Combinatorics();
 
 $collection = array();
 foreach ($prime->getPrimesTo(10000) as $n)
