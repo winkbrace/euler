@@ -160,16 +160,46 @@ class Prime
     public function getPrimeFactorsOf($n)
     {
         $f = new Factor();
+        $p = new Product();
         $factors = array();
 
         $primes = $this->getPrimesTo(ceil(sqrt($n)));
         foreach ($primes as $prime)
         {
             if ($f->isFactor($prime, $n))
-                $factors[] = $prime;
+                $factors[] = (int) $prime;
+        }
+        // now check if any found factors product results in another prime factor
+        // example: 645 -> sqrt() = 25 -> found factors = 3, 5 -> 3*5 = 15 -> 645 / 15 = 43 -> 43 is prime factor
+        // this looks a complicated way, but now we only need to check all primes up to sqrt($n) instead of $n/2
+        // which is a HUGE speed boost (600 secs -> 19 secs for problem 47)
+        foreach ($p->getAllProducts($factors) as $x)
+        {
+            if ($x > $n / $factors[0]) // no need to check numbers greater than n divided by smallest factor
+                break;
+
+            if ($f->isFactor($x, $n) && $this->isPrime($n / $x))
+            {
+                $factors[] = $n / $x;
+                break;
+            }
+
+            // search for factors that need to be multiplied with a multitude of a small factor
+            // example: 134043 -> 2, 3, 11, 677 -> 2*3*3*11 * 677 = 134043
+            foreach ($factors as $factor)
+            {
+                $y = $x * $factor;
+                while ($n % $y == 0)
+                {
+                    if ($this->isPrime($n / $y))
+                        $factors[] = $n / $y;
+
+                    $y *= $factor;
+                }
+            }
         }
 
-        return $factors;
+        return array_unique($factors);
     }
 
     protected function readFirst100kPrimes()

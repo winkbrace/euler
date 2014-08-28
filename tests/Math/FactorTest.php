@@ -29,6 +29,9 @@ class FactorTest extends \PHPUnit_Framework_TestCase
     public function testGetPrimeFactors()
     {
         $this->assertEquals(array(2, 3), $this->factor->getPrimeFactors(24));
+        $this->assertEquals(array(3, 5, 43), $this->factor->getPrimeFactors(645));
+        $this->assertEquals(array(3, 7, 13, 491), $this->factor->getPrimeFactors(134043));
+        $this->assertEquals(array(2, 3, 11, 677), $this->factor->getPrimeFactors(134046));
     }
 
     public function testGetSmallestFactorStepOfRange()

@@ -17,7 +17,7 @@
  * Find the first four consecutive integers to have four distinct prime factors.
  * What is the first of these numbers?
  *
- * Answer: 238203 (first to have 5 consecutive integers of four distinct prime factors: 357642)
+ * Answer: 134043
  */
 $log = new \Util\Log();
 $factor = new \Math\Factor();
@@ -28,11 +28,13 @@ for ($x=1000; $x<=999999; $x++)
     if ($x % 10000 == 0)
         $log->log("$x numbers checked so far");
 
-    for ($i=0; $i<=3; $i++)
+    for ($i=0; $i<4; $i++)
     {
-        $primeFactors[$i] = $factor->getPrimeFactors($x+$i);
-        if (count($primeFactors[$i]) != 4) {
-            $x += $i;
+        $id = $x + $i;
+        $primeFactors[$id] = $factor->getPrimeFactors($id);
+        if (count($primeFactors[$id]) != 4) {
+            $x = $id;
+            $primeFactors = array();
             continue 2;
         }
     }
