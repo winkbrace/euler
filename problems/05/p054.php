@@ -47,6 +47,8 @@
  * repeated cards), each player's hand is in no specific order, and in each hand there is a clear winner.
  *
  * How many hands does Player 1 win?
+ *
+ * The solution is: 376
  */
 $log = new \Util\Log();
 $players = [1 => new Player(1, 'One'), 2 => new Player(2, 'Two')];
