@@ -21,4 +21,20 @@
  * Surprisingly, there are palindromic numbers that are themselves Lychrel numbers; the first example is 4994.
  *
  * How many Lychrel numbers are there below ten-thousand?
+ *
+ * The solution is: 249
  */
+$log = new \Util\Log();
+$lychrel = new \Sequence\Lychrel(new \String\Palindrome());
+
+$lychrels = [];
+foreach (range(1, 10000) as $n)
+{
+    if ($lychrel->isLychrel($n))
+    {
+        $log->log($n . ' is a Lychrel number');
+        $lychrels[] = $n;
+    }
+}
+
+$log->solution(count($lychrels));
