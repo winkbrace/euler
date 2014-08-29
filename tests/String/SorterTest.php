@@ -15,4 +15,11 @@ class SorterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($sorter->compare('123', '321'));
         $this->assertFalse($sorter->compare('112', '122'));
     }
+
+    public function testCompareMultiple()
+    {
+        $sorter = new Sorter();
+        $this->assertTrue($sorter->compare('112','121','211','112'));
+        $this->assertFalse($sorter->compare('112','121','211','999'));
+    }
 }

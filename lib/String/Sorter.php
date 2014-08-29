@@ -17,13 +17,19 @@ class Sorter
     }
 
     /**
-     * compare 2 strings by their characters
-     * @param string $a
-     * @param string $b
+     * compare all parameters by their characters
      * @return bool
      */
-    public function compare($a, $b)
+    public function compare()
     {
-        return $this->sortCharacters($a) == $this->sortCharacters($b);
+        $first = null;
+        foreach (func_get_args() as $str)
+        {
+            if (empty($first))
+                $first = $this->sortCharacters($str);
+            elseif ($this->sortCharacters($str) != $first)
+                return false;
+        }
+        return true;
     }
 }

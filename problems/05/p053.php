@@ -15,6 +15,22 @@
  *
  * It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
  *
- * How many, not necessarily distinct, values of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
+ * How many, not necessarily distinct, intValues of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
+ *
+ * The solution is: 4075
  */
- 
+
+$log = new \Util\Log();
+$c = new \Math\Combinatorics();
+
+$found = 0;
+for ($n=1; $n<=100; $n++)
+{
+    for ($r=1; $r<$n; $r++)
+    {
+        if ($c->nCr($n, $r) > 1000000)
+            $found++;
+    }
+}
+
+$log->solution($found);
