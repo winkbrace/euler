@@ -1,4 +1,4 @@
-<?php
+<?php namespace Games\Poker;
 /**
  * Poker hands
  * Problem 54
@@ -10,11 +10,11 @@
  * One Pair: Two cards of the same value.
  * Two Pairs: Two different pairs.
  * Three of a Kind: Three cards of the same value.
- * Straight: All cards are consecutive values.
+ * Straight: All cards are consecutive intValues.
  * Flush: All cards of the same suit.
  * Full House: Three of a kind and a pair.
  * Four of a Kind: Four cards of the same value.
- * Straight Flush: All cards are consecutive values of same suit.
+ * Straight Flush: All cards are consecutive intValues of same suit.
  * Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
  *
  * The cards are valued in the order:
@@ -48,4 +48,24 @@
  *
  * How many hands does Player 1 win?
  */
- 
+$log = new \Util\Log();
+$players = [1 => new Player(1, 'One'), 2 => new Player(2, 'Two')];
+$dealer = new Dealer($players, $log);
+
+$wins = [1 => 0, 2 => 0];
+foreach (file(RESOURCES_PATH.'poker.txt') as $line)
+{
+    $split = \strnpos($line, ' ', 5);
+    $hand1 = substr($line, 0, $split);
+    $hand2 = trim(substr($line, $split)); // trim removes space and new-line
+
+    $dealer->deal(1, $hand1);
+    $dealer->deal(2, $hand2);
+    $winner = $dealer->findWinner();
+    $log->log('player ' . $players[$winner]->name . ' is the winner');
+    $wins[$winner] += 1;
+}
+
+print_r($wins);
+
+$log->solution($wins[1]);
