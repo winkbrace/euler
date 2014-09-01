@@ -1,4 +1,4 @@
-<?php namespace Sequence; 
+<?php namespace Sequence;
 
 abstract class Sequence
 {
@@ -15,6 +15,7 @@ abstract class Sequence
 
     public function createSequenceOfLength($n)
     {
+        $this->reset();
         for ($i=1; $i<=$n; $i++)
             $this->sequence[$i] = $this->next();
 
@@ -23,6 +24,7 @@ abstract class Sequence
 
     public function createSequenceTo($n)
     {
+        $this->reset();
         while (($value = $this->next()) <= $n)
             $this->sequence[$this->index] = $value;
 
@@ -55,4 +57,4 @@ abstract class Sequence
     {
         return $this->index;
     }
-} 
+}

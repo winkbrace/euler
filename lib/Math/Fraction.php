@@ -9,6 +9,7 @@ class Fraction
      * @param string $n
      * @return string
      */
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function getRecurringCycle($n)
     {
         $n = substr($n, strpos($n, '.')+1);
@@ -25,6 +26,7 @@ class Fraction
      * @param string $n
      * @return int
      */
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     protected function getCycleStartPosition($n)
     {
         $length = strlen($n);
@@ -46,8 +48,8 @@ class Fraction
      */
     public function getFraction($numerator, $divisor, $precision)
     {
-        $n = gmp_init($numerator);
-        $d = gmp_init($divisor);
+        $n = ! is_resource($numerator) ? gmp_init($numerator) : $numerator;
+        $d = ! is_resource($divisor) ? gmp_init($divisor) : $divisor;
 
         // get the part before the dot
         list($q, $n) = gmp_div_qr($n, $d);
@@ -82,8 +84,10 @@ class Fraction
         $gcd = gmp_gcd($n, $d);
         while (gmp_cmp($gcd, $one) == 1)  // while gcd > 1
         {
-            gmp_div($n, $gcd);
-            gmp_div($d, $gcd);
+            /** @noinspection PhpVoidFunctionResultUsedInspection */
+            $n = gmp_div($n, $gcd);
+            /** @noinspection PhpVoidFunctionResultUsedInspection */
+            $d = gmp_div($d, $gcd);
             $gcd = gmp_gcd($n, $d);
         }
 

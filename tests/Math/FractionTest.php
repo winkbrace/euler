@@ -1,4 +1,4 @@
-<?php namespace Math; 
+<?php namespace Math;
 
 class FractionTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,4 +46,3 @@ class FractionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(7, $n);
     }
 }
- 
