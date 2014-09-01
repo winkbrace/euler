@@ -75,15 +75,15 @@ class Fraction
      */
     public function simplify($numerator, $divisor)
     {
-        $n = gmp_init($numerator);
-        $d = gmp_init($divisor);
+        $n = ! is_resource($numerator) ? gmp_init($numerator) : $numerator;
+        $d = ! is_resource($divisor) ? gmp_init($divisor) : $divisor;
 
         $one = gmp_init('1');
         $gcd = gmp_gcd($n, $d);
         while (gmp_cmp($gcd, $one) == 1)  // while gcd > 1
         {
-            $n = gmp_div($n, $gcd);
-            $d = gmp_div($d, $gcd);
+            gmp_div($n, $gcd);
+            gmp_div($d, $gcd);
             $gcd = gmp_gcd($n, $d);
         }
 
