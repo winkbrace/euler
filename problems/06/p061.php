@@ -16,12 +16,103 @@
  *
  * The set is cyclic, in that the last two digits of each number is the first two digits of the next
  * number (including the last number with the first).
- * Each polygonal type: triangle (P3,127=8128), square (P4,91=8281), and pentagonal (P5,44=2882), is
+ * Each polygonal type: triangle (P(3,127)=8128), square (P(4,91)=8281), and pentagonal (P(5,44)=2882), is
  * represented by a different number in the set.
  * This is the only set of 4-digit numbers with this property.
  *
  * Find the sum of the only ordered set of six cyclic 4-digit numbers for which each polygonal type:
  * triangle, square, pentagonal, hexagonal, heptagonal, and octagonal, is represented by a different number
  * in the set.
+ *
+ * The solution is: 28684
  */
 $log = new \Util\Log();
+$triangle = new \Sequence\TriangleNumber();
+$square = new \Sequence\Square();
+$pentagonal = new \Sequence\Pentagonal();
+$hexagonal = new \Sequence\Hexagonal();
+$heptagonal = new \Sequence\Heptagonal();
+$octagonal = new \Sequence\Octagonal();
+
+function greater_than_1000($n) {
+    return $n >= 1000;
+}
+
+// create arrays with all 4 digit figurate numbers
+$triangles = array_filter($triangle->createSequenceTo(9999), 'greater_than_1000');
+$squares = array_filter($square->createSequenceTo(9999), 'greater_than_1000');
+$pentagonals = array_filter($pentagonal->createSequenceTo(9999), 'greater_than_1000');
+$hexagonals = array_filter($hexagonal->createSequenceTo(9999), 'greater_than_1000');
+$heptagonals = array_filter($heptagonal->createSequenceTo(9999), 'greater_than_1000');
+$octagonals = array_filter($octagonal->createSequenceTo(9999), 'greater_than_1000');
+
+// now create array with as keys the 2digit parts of all these numbers
+/*
+sample: [
+    91 => [
+        9180 => [3, 6]
+    ] ,
+    92 => [
+        9216 => [4],
+        9211 => [7],
+        9296 => [8]
+    ],
+]
+*/
+// 3 = triangle, 4 = square, etc.
+$lookup = [];
+foreach ([3 => $triangles, $squares, $pentagonals, $hexagonals, $heptagonals] as $id => $sequence) {
+    foreach ($sequence as $n) {
+        $lookup[substr($n, 0, 2)][$n][] = $id;
+    }
+}
+ksort($lookup);
+
+error_reporting(0); // ignore array key does not exist warnings
+foreach ($octagonals as $m) {
+    list($a, $b) = str_split($m, 2);
+    foreach (array_keys($lookup[$b]) as $n) {
+        $c = substr($n, -2);
+        foreach (array_keys($lookup[$c]) as $o) {
+            $d = substr($o, -2);
+            foreach (array_keys($lookup[$d]) as $p) {
+                $e = substr($p, -2);
+                foreach (array_keys($lookup[$e]) as $q) {
+                    $f = substr($q, -2);
+                    foreach (array_keys($lookup[$f]) as $r) {
+                        if ($a == substr($r, -2)) {
+                            $found[] = [$a, $b, $c, $d, $e, $f];
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+error_reporting(E_ALL);
+
+// we now have 48 cyclic numbers. Now find the combination that has one of each figurate number
+foreach ($found as $nrs) {
+    list($a, $b, $c, $d, $e, $f) = $nrs;
+    $typesCollection = array(
+        [8],
+        $lookup[$b][$b.$c],
+        $lookup[$c][$c.$d],
+        $lookup[$d][$d.$e],
+        $lookup[$e][$e.$f],
+        $lookup[$f][$f.$a],
+    );
+    $uniqueTypes = [];
+    foreach ($typesCollection as $types) {
+        foreach ($types as $type) {
+            $uniqueTypes[$type] = 1;
+        }
+    }
+    $solution = [$a.$b, $b.$c, $c.$d, $d.$e, $e.$f, $f.$a];
+    if (count($uniqueTypes) == 6 && count(array_unique($solution)) == 6) {
+        break;
+    }
+}
+
+print_r($solution);
+$log->solution(array_sum($solution));

@@ -12,7 +12,7 @@ use Util\Integer;
  * 7 => 28  = 7 * 4
  * 8 => 36  = 8 * 4.5
  */
-class TriangleNumber
+class TriangleNumber extends Sequence
 {
     /**
      * @param int $x
@@ -47,9 +47,12 @@ class TriangleNumber
         return -0.5 + (0.5 * sqrt(1 + (8 * $n)));
     }
 
+    /**
+     * @param int $n
+     * @return bool
+     */
     public function isTriangleNumber($n)
     {
-        $i = $this->getIndexOf($n);
-        return Integer::isInteger($i);
+        return Integer::isInteger($this->getIndexOf($n));
     }
-} 
+}
