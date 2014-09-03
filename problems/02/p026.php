@@ -25,7 +25,7 @@
  */
 
 $fraction = new \Math\Fraction();
-$prime = new \Math\Prime();
+$prime = \Math\Prime::getInstance();
 
 $max = 0;
 foreach ($prime->getPrimesTo(1000) as $i)

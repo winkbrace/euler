@@ -75,4 +75,15 @@ class PrimeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->prime->isTruncatable(3797));
         $this->assertFalse($this->prime->isTruncatable(269));
     }
+
+    // this test is working, but takes 3 seconds, so commented out
+    /*
+    public function testRead1M()
+    {
+        $prime = Prime::getInstance('1M');
+        $this->assertInstanceOf('\\Math\\Prime', $prime);
+        $this->assertCount(1000000, $prime->getPrimes());
+        $this->assertEquals(15485863, $prime->getMaxInFile());
+    }
+    */
 }

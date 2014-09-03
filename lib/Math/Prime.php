@@ -4,32 +4,36 @@ use String\Rotation;
 
 class Prime
 {
-    const MAX_IN_FILE = 1299827;
-
     /** @var int[] */
-    protected $primes = array();
+    protected $primes = [];
     /** @var array */
-    protected $flippedPrimes = array();
+    protected $flippedPrimes = [];
+    /** @var int */
+    protected $maxInFile;
 
-    /** @var \Math\Prime */
-    protected static $instance;
+    /** @var \Math\Prime[] */
+    protected static $instances = [];
 
 
-    protected function __construct()
+    /**
+     * @param string $amount
+     */
+    protected function __construct($amount = '100k')
     {
-        $this->readFirst100kPrimes();
+        $this->readPrimes($amount);
     }
 
     /**
      * It is handy to have only 1 Prime instance, so the file with first 100k primes will only be read once.
+     * @param string $amount size of array of primes to load
      * @return \Math\Prime
      */
-    public static function getInstance()
+    public static function getInstance($amount = '100k')
     {
-        if (empty(static::$instance))
-            static::$instance = new static();
+        if (empty(static::$instances[$amount]))
+            static::$instances[$amount] = new static($amount);
 
-        return static::$instance;
+        return static::$instances[$amount];
     }
 
     /**
@@ -41,7 +45,7 @@ class Prime
         if ($n < 2)
             return false;
 
-        if ($n > static::MAX_IN_FILE)
+        if ($n > $this->maxInFile)
             return $this->calculateIsPrime($n);
 
         return isset($this->flippedPrimes[$n]);
@@ -103,8 +107,11 @@ class Prime
         {
             if ($p > $root)
             {
-                $this->primes[] = $n;
-                $this->flippedPrimes[$n] = ++$count;
+                if (! isset($this->flippedPrimes[$n]))
+                {
+                    $this->primes[] = $n;
+                    $this->flippedPrimes[$n] = ++$count;
+                }
                 return true;
             }
 
@@ -136,7 +143,7 @@ class Prime
      */
     public function getPrimesTo($n)
     {
-        if ($n > static::MAX_IN_FILE)
+        if ($n > $this->maxInFile)
             return $this->primes;
 
         $primes = array();
@@ -202,13 +209,24 @@ class Prime
         return array_unique($factors);
     }
 
-    protected function readFirst100kPrimes()
+    /**
+     * @return int
+     */
+    public function getMaxInFile()
+    {
+        return $this->maxInFile;
+    }
+
+    /**
+     * @param string $amount
+     */
+    protected function readPrimes($amount)
     {
         $i = 0;
-        $lines = file(realpath(__DIR__ . '/../../resources/first_100k_primes.txt'));
+        $lines = file(realpath(__DIR__ . '/../../resources/first_'.$amount.'_primes.txt'));
         foreach ($lines as $line)
         {
-            foreach (str_split($line, 8) as $prime)
+            foreach (array_filter(explode(' ', $line)) as $prime)
             {
                 $prime = trim($prime);
                 if (! empty($prime))
@@ -219,5 +237,6 @@ class Prime
                 }
             }
         }
+        $this->maxInFile = $this->primes[$i-1];
     }
 }

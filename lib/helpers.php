@@ -16,3 +16,16 @@ function strnpos($haystack, $needle, $n)
         return error_log('Error: Value for parameter $number is out of range');
     }
 }
+
+/**
+ * check if number is a gmp resource, else create it as one
+ * @param mixed $n
+ * @return resource
+ */
+function gmp($n)
+{
+    if (is_resource($n) && substr(get_resource_type($n), 0, 3) == 'GMP')
+        return $n;
+    else
+        return gmp_init($n);
+}
