@@ -16,11 +16,26 @@
  * √8=[2;(1,4)], period=2
  * √10=[3;(6)], period=1
  * √11=[3;(3,6)], period=2
- * √12= [3;(2,6)], period=2
+ * √12=[3;(2,6)], period=2
  * √13=[3;(1,1,1,1,6)], period=5
  *
  * Exactly four continued fractions, for N ≤ 13, have an odd period.
  *
  * How many continued fractions for N ≤ 10000 have an odd period?
+ *
+ * The solution is: 1322
  */
 $log = new \Util\Log();
+$root = new \Math\Root();
+
+$count = 0;
+for ($i=2; $i<=10000; $i++)
+{
+    if ($cf = $root->getContinuedFraction($i)) {
+        $period = explode(',', substr($cf, strpos($cf, '(') + 1, -2));
+        if (count($period) & 1)
+            $count++;
+    }
+}
+
+$log->solution($count);

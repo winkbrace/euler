@@ -48,8 +48,8 @@ class Fraction
      */
     public function getFraction($numerator, $divisor, $precision)
     {
-        $n = ! is_resource($numerator) ? gmp_init($numerator) : $numerator;
-        $d = ! is_resource($divisor) ? gmp_init($divisor) : $divisor;
+        $n = gmp($numerator);
+        $d = gmp($divisor);
 
         // get the part before the dot
         list($q, $n) = gmp_div_qr($n, $d);
@@ -77,8 +77,8 @@ class Fraction
      */
     public function simplify($numerator, $divisor)
     {
-        $n = ! is_resource($numerator) ? gmp_init($numerator) : $numerator;
-        $d = ! is_resource($divisor) ? gmp_init($divisor) : $divisor;
+        $n = gmp($numerator);
+        $d = gmp($divisor);
 
         $one = gmp_init('1');
         $gcd = gmp_gcd($n, $d);
