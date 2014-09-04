@@ -156,7 +156,7 @@ class Combinatorics
      */
     public function createPermutations($pool)
     {
-        if (is_string($pool))
+        if (! is_array($pool))
             $pool = str_split($pool);
         sort($pool);
 
